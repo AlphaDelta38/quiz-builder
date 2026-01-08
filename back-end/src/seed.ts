@@ -25,11 +25,15 @@ const seed = async () => {
     const usersData = Array.from({ length: 5 }, () => ({
       username: faker.internet.username(),
       email: faker.internet.email(),
-      password: bcrypt.hashSync('12345678', process.env.BCRYPT_SALT_ROUNDS || 5),
+      password: bcrypt.hashSync('12345678', Number(process.env.BCRYPT_SALT) || 5),
     }));
 
     const users = await User.bulkCreate(usersData);
-    console.log(`Created ${users.length} users`);
+    const admin = await createAdmin();
+
+    users.push(admin);
+
+    console.log(`Created ${users.length} users and admin`);
 
     console.log('Seeding Quizzes & Questions...');
 
@@ -90,5 +94,17 @@ const seed = async () => {
     process.exit(1);
   }
 };
+
+async function createAdmin() {
+  const admin = await User.create({
+    username: 'admin',
+    email: 'admin@example.com',
+    password: bcrypt.hashSync('12345678', Number(process.env.BCRYPT_SALT) || 5),
+  });
+
+  console.log(`Admin created: ${admin.username}`);
+
+  return admin;
+}
 
 seed();

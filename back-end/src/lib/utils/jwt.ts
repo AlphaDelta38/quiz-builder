@@ -3,21 +3,16 @@ import 'dotenv/config';
 
 const SECRET_KEY = process.env.JWT_SECRET || 'default_secret';
 
-interface TokenPayload {
-  id: number;
-  username: string;
-  email: string;
+export function generateToken<T extends object>(
+  payload: T, 
+  expiresIn: SignOptions['expiresIn'] = (process.env.JWT_EXPIRES_IN || '24h') as SignOptions['expiresIn']
+): string {
+  return jwt.sign(payload, SECRET_KEY, { expiresIn });
 }
 
-export const generateToken = (payload: TokenPayload): string => {
-  return jwt.sign(payload, SECRET_KEY, {
-    expiresIn: (process.env.JWT_EXPIRES_IN || '24h') as SignOptions['expiresIn']
-  });
-};
-
-export const verifyToken = (token: string): TokenPayload | null => {
+export function verifyToken<T extends object>(token: string): T | null {
   try {
-    return jwt.verify(token, SECRET_KEY) as TokenPayload;
+    return jwt.verify(token, SECRET_KEY) as T;
   } catch (e) {
     return null;
   }
