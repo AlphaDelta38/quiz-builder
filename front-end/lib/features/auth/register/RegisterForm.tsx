@@ -1,7 +1,7 @@
 "use client";
 
 import { Input, Button } from "@/lib/components";
-import { AuthCard } from "@/lib/features/auth/components/AuthCard";
+import { AuthCard } from "@/lib/features/Auth/components/AuthCard";
 import styles from "./RegisterForm.module.scss";
 
 function RegisterForm() {
@@ -59,7 +59,7 @@ function RegisterForm() {
         <Button type="submit" fullWidth isLoading={true} size="lg">
           Register
         </Button>
-        
+
       </form>
     </AuthCard>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthCard } from "@/lib/features/auth/components/AuthCard";
+import { AuthCard } from "@/lib/features/Auth/components/AuthCard";
 import styles from "./LoginForm.module.scss";
 import { Input, Button } from "@/lib/components";
 

@@ -1,8 +1,10 @@
+import Navbar from "@/lib/features/Navbar";
+
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <h1>Layout</h1>
-      {children}
+      <Navbar />
+      <main>{children}</main>
     </div>
   );
 }
