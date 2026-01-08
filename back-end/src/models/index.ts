@@ -1,18 +1,18 @@
 import User from './User.js';
-import Quizze from './Quizze.js';
+import Quiz from './Quiz.js';
 import Question from './Question.js';
 import QuestionContentText from './QuestionContentText.js';
 import QuestionContentMulti from './QuestionContentMulti.js';
 import QuestionContentBoolean from './QuestionContentBoolean.js';
 
 // user has many quizzes
-User.hasMany(Quizze, { 
+User.hasMany(Quiz, { 
   foreignKey: 'userId', 
   as: 'quizzes',
   onDelete: 'CASCADE',
   hooks: true
 });
-Quizze.belongsTo(User, { 
+Quiz.belongsTo(User, { 
   foreignKey: 'userId', 
   as: 'owner'
 });
@@ -28,12 +28,12 @@ Question.belongsTo(User, {
 });
 
 // quiz has many questions
-Quizze.belongsToMany(Question, { 
+Quiz.belongsToMany(Question, { 
   through: 'quiz_questions', 
   as: 'questions', 
   timestamps: false 
 });
-Question.belongsToMany(Quizze, { 
+Question.belongsToMany(Quiz, { 
   through: 'quiz_questions', 
   as: 'quizzes',
   timestamps: false 
@@ -69,7 +69,7 @@ QuestionContentBoolean.belongsTo(Question, { foreignKey: 'questionId' });
 
 export { 
   User, 
-  Quizze, 
+  Quiz, 
   Question,
   QuestionContentText,
   QuestionContentMulti,

@@ -1,17 +1,23 @@
 import User from '../../models/User.js';
-import Quizze from '../../models/Quizze.js';
+import Quiz from '../../models/Quiz.js';
 import Question from '../../models/Question.js';
 import QuestionContentText from '../../models/QuestionContentText.js';
+import QuestionContentBoolean from '../../models/QuestionContentBoolean.js';
+import QuestionContentMulti from '../../models/QuestionContentMulti.js';
 import { InferAttributes } from 'sequelize';
 
-type UserType = InferAttributes<User>;
-type QuizType = InferAttributes<Quizze>;
-type QuestionType = InferAttributes<Question>;
-type QuestionContentTypeText = InferAttributes<QuestionContentText>;
+type UserAttibutes = InferAttributes<User>;
+type QuizAttributes = InferAttributes<Quiz>;
+type QuestionAttributes = InferAttributes<Question>;
+type QuestionContentTextAttributes = InferAttributes<QuestionContentText>;
+type QuestionContentBooleanAttributes = InferAttributes<QuestionContentBoolean>;
+type QuestionContentMultiAttributes = InferAttributes<QuestionContentMulti>;
 
 export type { 
-  UserType, 
-  QuizType, 
-  QuestionType,
-  QuestionContentTypeText,
+  UserAttibutes, 
+  QuizAttributes, 
+  QuestionAttributes,
+  QuestionContentTextAttributes,
+  QuestionContentBooleanAttributes,
+  QuestionContentMultiAttributes,
 };

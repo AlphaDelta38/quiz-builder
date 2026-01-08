@@ -6,25 +6,33 @@ import {
   CreationOptional,  
   NonAttribute,
   ForeignKey,
+  HasManyAddAssociationsMixin,
+  HasManyAddAssociationMixin,
+  HasManyGetAssociationsMixin,
 } from 'sequelize';
 import db from '../db.js'; 
 import Question from './Question.js';
 import User from './User.js';
 
-export class Quizze extends Model<InferAttributes<Quizze>, InferCreationAttributes<Quizze>> {
+export class Quiz extends Model<InferAttributes<Quiz>, InferCreationAttributes<Quiz>> {
   declare id: CreationOptional<number>;
   
   declare title: string;
   declare questions?: NonAttribute<Question[]>;
   declare isPrivate: CreationOptional<boolean>;
 
+  declare addQuestions: HasManyAddAssociationsMixin<Question, number>;
+  declare getQuestions: HasManyGetAssociationsMixin<Question>;
+  declare addQuestion: HasManyAddAssociationMixin<Question, number>;
+  
+  declare owner?: NonAttribute<User>;
   declare userId: ForeignKey<User['id']>;
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
-Quizze.init(
+Quiz.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -61,4 +69,4 @@ Quizze.init(
   }
 );
 
-export default Quizze;
+export default Quiz;

@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import db from './db.js';
 import { 
   User, 
-  Quizze, 
+  Quiz, 
   Question, 
   QuestionContentText, 
   QuestionContentMulti,
@@ -38,7 +38,7 @@ const seed = async () => {
     console.log('Seeding Quizzes & Questions...');
 
     for (const user of users) {
-      const quiz = await Quizze.create({
+      const quiz = await Quiz.create({
         title: faker.lorem.words(3),
         userId: user.id,
         isPrivate: faker.datatype.boolean(),

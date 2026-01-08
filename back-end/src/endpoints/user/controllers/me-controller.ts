@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import errorHandler, { CustomError } from '../../../lib/utils/error-handler.js';
-import meService from '../servcies/me-service.js';
+import meService from '../services/me-service.js';
 import { MeControllerRequest } from '../types/controller.js';
 
 

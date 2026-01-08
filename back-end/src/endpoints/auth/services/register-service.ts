@@ -1,11 +1,11 @@
-import { UserType } from "../../../lib/types/models.js";
+import { UserAttibutes } from "../../../lib/types/models.js";
 import { RegisterRequest } from "../types/service.js";
 import bcrypt from 'bcrypt';
 import User from "../../../models/User.js";
 import { CustomError } from "../../../lib/utils/error-handler.js";
 import 'dotenv/config';
 
-async function registerService(data: RegisterRequest): Promise<UserType> {
+async function registerService(data: RegisterRequest): Promise<Omit<UserAttibutes, 'password'>> {
   const user = await User.findOne({ where: { email: data.email } });
 
   if (user) {

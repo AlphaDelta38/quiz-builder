@@ -3,7 +3,7 @@ import db from '../db.js';
 import QuestionContentText from './QuestionContentText.js';
 import QuestionContentMulti from './QuestionContentMulti.js';
 import QuestionContentBoolean from './QuestionContentBoolean.js';
-import Quizze from './Quizze.js';
+import Quizze from './Quiz.js';
 import User from './User.js';
 
 export enum QuestionType {

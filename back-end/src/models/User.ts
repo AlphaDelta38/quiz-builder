@@ -1,6 +1,6 @@
 import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from 'sequelize';
 import db from '../db.js'; 
-import Quizze from './Quizze.js';
+import Quizze from './Quiz.js';
 import type Question from './Question.js';
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {

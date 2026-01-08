@@ -1,10 +1,10 @@
-import { UserType } from "../../../lib/types/models.js";
+import { UserAttibutes } from "../../../lib/types/models.js";
 import { LoginRequest } from "../types/service.js";
 import bcrypt from 'bcrypt';
 import User from "../../../models/User.js";
 import { CustomError } from "../../../lib/utils/error-handler.js";
 
-async function loginService(data: LoginRequest): Promise<UserType> {
+async function loginService(data: LoginRequest): Promise<Omit<UserAttibutes, 'password'>> {
   const user = await User.findOne({ where: { email: data.email } });
 
   if (!user) {
