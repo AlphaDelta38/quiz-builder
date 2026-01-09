@@ -7,12 +7,14 @@ import { Button } from "@/lib/components/Button";
 import styles from "./index.module.scss";
 import { Routes } from "@/app/routes";
 import BurgerButton from "./components/burger-button";
-import { NavLinks } from "./constants";
+import { AuthNavLinks, NavLinks } from "./constants";
 import MobileMenu from "./widgets/mobile-menu";
+import { useAuth } from "../Auth/context/AuthContext";
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { user, isAuthenticated, isLoading, logout } = useAuth();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -35,18 +37,26 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          {isAuthenticated && AuthNavLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`${styles.navLink} ${pathname === link.href ? styles.active : ""}`}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
 
         <div className={styles.rightSection}>
-          {true && (
+          {isAuthenticated ? (
             <>
-              <span className={styles.userName}>{"userName"}</span>
-              <Button variant="ghost" size="sm">
+              <span className={styles.userName}>{user?.username}</span>
+              <Button variant="ghost" size="sm" onClick={logout} disabled={isLoading}>
                 Sing out
               </Button>
             </>
-          )}
-          {false && (
+          ) : (
             <>
               <Link href={Routes.Login}>
                 <Button variant="ghost" size="sm">
@@ -69,6 +79,10 @@ function Navbar() {
         mobileMenuOpen={mobileMenuOpen}
         closeMobileMenu={closeMobileMenu}
         pathname={pathname}
+        isAuthenticated={isAuthenticated}
+        userName={user?.username}
+        isLoading={isLoading}
+        onLogout={logout}
       />
 
       {mobileMenuOpen && (

@@ -5,13 +5,13 @@ import db from "../../../db.js";
 import { CustomError } from "../../../lib/utils/error-handler.js";
 import Question from "../../../models/Question.js";
 
-async function createQuizService(data: CreateQuizzeServiceRequest): Promise<Quiz> {
+async function createQuizService(data: CreateQuizzeServiceRequest, userId: number): Promise<Quiz> {
   const t = await db.transaction();
 
-  const quiz: Quiz = await Quiz.create(data.quiz, { transaction: t });
+  const quiz: Quiz = await Quiz.create({ ...data.quiz, userId }, { transaction: t });
   
   const createdQuestions = await Promise.all(
-    data.newQuestions.map(q => createQuestion(q, t)
+    data.newQuestions.map(q => createQuestion(q, userId, t)
   ));
 
   const foundExistingQuestions = await Question.findAll({
@@ -29,7 +29,7 @@ async function createQuizService(data: CreateQuizzeServiceRequest): Promise<Quiz
 
   await t.commit();
 
-  const result = await Quiz.findByPk(quiz.id, { include: ['questions'] });
+  const result = await Quiz.findByPk(quiz.id, { include: [{ model: Question, as: 'questions', attributes: ['id'] }] });
 
   if (!result) {
     throw new CustomError("Quiz not found", 404);

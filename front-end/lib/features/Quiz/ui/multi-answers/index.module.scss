@@ -1,0 +1,52 @@
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: default;
+  transition: all var(--transition-fast);
+
+  &.correct {
+    background-color: var(--color-success-light);
+    border-color: var(--color-success);
+  }
+
+  &.incorrect {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-border);
+  }
+}
+
+.answerIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+
+  &.correct {
+    color: var(--color-success);
+    background-color: var(--color-bg-primary);
+  }
+
+  &.incorrect {
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-primary);
+  }
+}
+
+.answerText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}

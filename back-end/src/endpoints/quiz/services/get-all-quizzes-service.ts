@@ -6,10 +6,10 @@ async function getAllQuizzesService(page: number, limit: number): Promise<Quiz[]
     where: {
       isPrivate: false,
     },
-    attributes: ['id', 'title'],
+    attributes: ['id', 'title', 'createdAt', 'updatedAt'],
     offset: (page - 1) * limit,
     limit: limit,
-    include: [{ model: Question, attributes: ['id'] }],
+    include: [{ model: Question, as: 'questions', attributes: ['id'] }],
     order: [['createdAt', 'DESC']],
   });
 

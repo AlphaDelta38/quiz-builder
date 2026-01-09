@@ -4,7 +4,7 @@ import db from './db.js';
 import authRoutes from './endpoints/auth/routes.js';
 import userRoutes from './endpoints/user/routes.js';
 import quizzeRoutes from './endpoints/quiz/routes.js';
-
+import cors from 'cors';
 import 'dotenv/config';
 import './models/index.js';
 
@@ -20,6 +20,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true,   
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(cookieParser());
 
 app.use('/auth', authRoutes);

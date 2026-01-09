@@ -34,10 +34,10 @@ const contentKeyMap: Record<QuestionType, keyof Omit<NewQuestion, 'questionData'
   [QuestionType.MULTI]: "multiContent",
 };
 
-async function createQuestion(questionData: NewQuestion, transaction: Transaction ): Promise<Question> {
+async function createQuestion(questionData: NewQuestion, userId: number, transaction: Transaction ): Promise<Question> {
   const { questionData: qData } = questionData;
   
-  const question = await Question.create(qData, { transaction });
+  const question = await Question.create({ ...qData, userId }, { transaction });
 
   const contentKey = contentKeyMap[qData.type];
   const contentData = questionData[contentKey];

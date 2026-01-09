@@ -1,0 +1,2 @@
+export { AllQuizzes } from "./AllQuizzes";
+

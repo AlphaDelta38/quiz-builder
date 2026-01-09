@@ -1,0 +1,2 @@
+export { LatestQuizzes } from "./LatestQuizzes";
+
